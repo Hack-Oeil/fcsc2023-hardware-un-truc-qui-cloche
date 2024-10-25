@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  ssh.cyrhades.fr:
+    build: ssh
+  webssh.cyrhades.fr:
+    build: webssh
+    ports:
+    - ${PORT}:8888
+  un-truc-qui-cloche.cyrhades.fr:
+    image: anssi/fcsc2023-hardware-un-truc-qui-cloche:latest
+    read_only: true
+    ports:
+      - ${PORT_SSH}:4000
