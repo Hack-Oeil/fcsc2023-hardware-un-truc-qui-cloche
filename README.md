@@ -41,12 +41,12 @@ Origine : [Un truc qui cloche](https://hackropole.fr/fr/challenges/hardware/fcsc
 > http://localhost
 
 #### tentez 
-> nc un-truc-qui-cloche.cyrhades.fr:4000
+> nc un-truc-qui-cloche.cyrhades.fr 4000
 
 -----------
 
 ## Ou directement avec netcat
-> nc localhost:4000
+> nc localhost 4000
 
 
 -----------
