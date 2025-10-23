@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="fr">
+    <meta charset="UTF-8">
+    <!--Page Title-->
+    <title>Hack-Oeil - Les CTFs de Cyrhades</title>
+    <!--Meta Keywords and Description-->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" href="./assets/images/favicon.ico" title="Favicon" />
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="./assets/css/github.min.css">
+    <script src="./assets/js/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Vérifie si la fenêtre est dans une iframe
+            if (window.self !== window.top) {
+                document.querySelectorAll('a').forEach((link) => {
+                    link.addEventListener('click', (event) => {
+                        const a = event.target.closest('a[href^="http"]');
+                        if (a) {
+                            event.preventDefault();
+                            window.parent.postMessage({
+                                type: "open-external",
+                                url: a.href
+                            }, "*");
+                        }
+                    });
+                });
+            }
+            // Active la coloration syntaxique :
+            if (window.hljs) {
+                hljs.highlightAll();
+            } else {
+                console.error("Highlight.js non chargé !");
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--Main Content Area-->
+        <main id="content">
+            <!--Ctf-->
+            <section class="ctf scrollto">
+                <article class="row clearfix">
+                    <div class="col-1">
+                        <div class="section-heading">
+                            <h3>Challenge #353</h3>
+                            <h2 class="section-title">Un truc qui cloche</h2>
+                            <p>Nous avons retrouvé un message qui a été chiffré par un vieux serveur avec RSA-CRT.
+                                Malheureusement, le serveur est en très mauvais état, il n’est possible de réaliser
+                                qu’une unique signature (ou un déchiffrement, c’est la même opération) mais cette
+                                opération se passe mal. Nous pensons qu’une erreur est introduite lors du calcul de
+                                l’exponentiation modulaire d’un des résidus modulaires.
+                                <br /><br />
+                                Nous comptons sur vous pour récupérer la clé permettant de déchiffrer le message.
+                                <br /><br />
+                                Le serveur réalise le chiffrement de la manière suivante (en Python) :
+
+                            <pre><code class="language-python">
+m = int.from_bytes(b"Test message", "big")
+c = pow(m, e, n)
+</code></pre>
+                            <br />
+                            Le serveur réalise le déchiffrement (ou la signature) de la manière suivante :
+                            <br />
+                            <pre><code class="language-python">
+n = p * q
+dp = d % (p - 1)
+dq = d % (q - 1)
+cp = pow(m, dp, p)
+cq = pow(m, dq, q)
+_, a, b = egcd(p, q) # Extended GCD
+m = (a * p * cq + b * q * cp) % n
+</code></pre>
+                            <br />
+                            Pour convertir le message en suite d’octets :
+                            <pre><code class="language-python">
+                            m = m.to_bytes((m.bit_length() + 7) // 8, "big")
+</code></pre>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="row clearfix">
+                    <div class="col-1">
+                        <div class="section-heading">
+                            <h3>FCSC 2023</h3>
+                            <h2 class="section-title">Hackropole</h2>
+                            <p class="section-subtitle">
+                                Lien officiel :
+                                <a target="_blank"
+                                    href="https://hackropole.fr/fr/challenges/hardware/fcsc2023-hardware-un-truc-qui-cloche/">FCSC
+                                    2023 -
+                                    Un truc qui cloche
+                                </a>
+                                <br />
+                                Auteur: Ker
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="row clearfix">
+                    <div class="col-1">
+                        <div class="section-heading">
+                            <h3>Apprentissage</h3>
+                            <h2 class="section-title">Documentations et Vidéos</h2>
+                            <p class="section-subtitle">
+                                Aucune documentation pour le moment
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="row clearfix">
+                    <div class="col-1">
+                        <div class="section-heading">
+                            <h3>Aide</h3>
+                            <h2 class="section-title">Conseils et indices</h2>
+                            <p class="section-subtitle">
+                                <a target="_blank"
+                                    href="https://discord.com/channels/1175764392307077120/1175764601716092948">Fil sur
+                                    le Discord</a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+            <!--End of Ctf-->
+        </main>
+        <!--End Main Content Area-->
+
+        <a id="scrollUp" href="#wrapper" style="position: fixed; z-index: 1000;"
+            aria-label="Remonter en haut de la page" title="Remonter en tête de site"></a>
+    </div>
+</body>
+
+</html>
